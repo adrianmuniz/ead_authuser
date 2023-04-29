@@ -59,7 +59,7 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     private LocalDateTime creationDate;
 
     @Column(nullable = false)
-   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime lastUpdateDate;
 
 
