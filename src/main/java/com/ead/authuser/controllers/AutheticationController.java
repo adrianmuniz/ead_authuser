@@ -33,9 +33,11 @@ public class AutheticationController {
                                                    @JsonView(UserDTO.UserView.RegistrationPost.class) UserDTO userDTO) {
         log.debug("POST registerUser userDto received {} ", userDTO.toString());
         if(userService.existsByUsername(userDTO.getUsername())){
+            log.warn("PError: Username {} is Already Taken!  ", userDTO.getUsername());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
         }
         if(userService.existsByEmail(userDTO.getEmail())){
+            log.warn("Error: Email {} is Already Taken!  ", userDTO.getEmail());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
         }
         var userModel = new UserModel();
@@ -56,6 +58,11 @@ public class AutheticationController {
         log.info("INFO");
         log.warn("WARN");
         log.error("ERROR");
+        try{
+            throw new Exception("Exception message");
+        }catch (Exception e){
+            log.error("--------ERROR-------", e);
+        }
         return "Logging Spring Boot";
     }
 
