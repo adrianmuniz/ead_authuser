@@ -5,6 +5,7 @@ import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
 import com.ead.authuser.specifications.SpecificationTemplate;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import java.util.UUID;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Log4j2
 @RestController
 @CrossOrigin(origins = "x", maxAge = 3600)
 @RequestMapping("/users")
@@ -77,6 +79,7 @@ public class UserController {
             userModel.setPhoneNumber(userDTO.getPhoneNumber());
             userModel.setCpf(userDTO.getCpf());
             userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+            log.debug("POST registerUser userId saved {} ", userModel.getUserId());
             userService.save(userModel);
 
             return ResponseEntity.status(HttpStatus.OK).body(userModel);
@@ -95,6 +98,7 @@ public class UserController {
             var userModel = userModelOptional.get();
             userModel.setPassword(userDTO.getPassword());
             userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+            log.debug("POST updatePassword userId saved {} ", userModel.getUserId());
             userService.save(userModel);
             return ResponseEntity.status(HttpStatus.OK).body("Password Updated Sucessfully.");
         }
@@ -110,6 +114,7 @@ public class UserController {
             var userModel = userModelOptional.get();
             userModel.setImageUrl(userDTO.getImageUrl());
             userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+            log.debug("POST updateImage userId saved {} ", userModel.getUserId());
             userService.save(userModel);
             return ResponseEntity.status(HttpStatus.OK).body(userModel);
         }
