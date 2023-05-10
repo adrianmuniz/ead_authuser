@@ -1,16 +1,16 @@
 package com.ead.authuser.services.impl;
 
+import com.ead.authuser.repositories.UserCourseRepository;
 import com.ead.authuser.services.UserCourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserCourseServiceImpl implements UserCourseService {
 
     final
-    UserCourseService userCourseService;
+    UserCourseRepository userCourseRepository;
 
-    public UserCourseServiceImpl(UserCourseService userCourseService) {
-        this.userCourseService = userCourseService;
+    public UserCourseServiceImpl(UserCourseRepository userCourseRepository) {
+        this.userCourseRepository = userCourseRepository;
     }
 }
