@@ -65,7 +65,16 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     private LocalDateTime lastUpdateDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+<<<<<<< HEAD
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private Set<UserCourseModel> usersCourses;
+=======
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserCourseModel> usersCourses;
+
+    public UserCourseModel convertToUserCourseModel(UUID courseId){
+        return new UserCourseModel(null, courseId, this);
+    }
+>>>>>>> 263d9aebb969870145e99e81f61c9e24b607e27f
 
 }
