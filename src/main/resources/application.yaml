@@ -19,16 +19,9 @@ spring:
     ansi:
       enabled: Always
 
-<<<<<<< HEAD
-ead:
-  api:
-    url:
-      course: 'http://localhost:8082'
-=======
 logging:
   level:
     com.ead: TRACE
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate: DEBUG
->>>>>>> cebbe0bb831f8b2eac6272a29ec29d952082cc22
