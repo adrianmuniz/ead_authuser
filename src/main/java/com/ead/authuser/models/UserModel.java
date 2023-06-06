@@ -61,26 +61,11 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     private LocalDateTime creationDate;
 
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime lastUpdateDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-<<<<<<< HEAD
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private Set<UserCourseModel> usersCourses;
-=======
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserCourseModel> usersCourses;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public UserCourseModel convertToUserCourseModel(UUID courseId){
-        return new UserCourseModel(null, courseId, this);
-    }
->>>>>>> 263d9aebb969870145e99e81f61c9e24b607e27f
-
-=======
->>>>>>> parent of 263d9ae (Merge pull request #5 from adrianmuniz/synchronous-communication-api-composition)
-=======
->>>>>>> parent of eba63d6 (Comunicação Síncrona - Inscrição de User em Course - Parte 3)
 }
