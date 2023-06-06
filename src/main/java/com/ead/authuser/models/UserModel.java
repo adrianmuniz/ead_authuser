@@ -73,6 +73,7 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     private Set<UserCourseModel> usersCourses;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public UserCourseModel convertToUserCourseModel(UUID courseId){
         return new UserCourseModel(null, courseId, this);
     }
@@ -80,4 +81,6 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
 
 =======
 >>>>>>> parent of 263d9ae (Merge pull request #5 from adrianmuniz/synchronous-communication-api-composition)
+=======
+>>>>>>> parent of eba63d6 (Comunicação Síncrona - Inscrição de User em Course - Parte 3)
 }
