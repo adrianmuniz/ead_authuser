@@ -2,6 +2,8 @@ server:
   port: 8087
 
 spring:
+  application:
+    name: ead-authuser-service
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-authuser
     username: postgres
@@ -19,9 +21,21 @@ spring:
     ansi:
       enabled: Always
 
+ead:
+  api:
+    url:
+      course: 'http://localhost:8082'
+
 logging:
   level:
     com.ead: TRACE
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate: DEBUG
+
+eureka:
+  client:
+    service-url:
+      default-Zone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
