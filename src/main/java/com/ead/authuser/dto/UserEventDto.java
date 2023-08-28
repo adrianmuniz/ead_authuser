@@ -10,7 +10,7 @@ public class UserEventDto {
     private UUID userId;
     private String username;
     private String email;
-    private String fullname;
+    private String fullName;
     private String userStatus;
     private String userType;
     private String phoneNumber;
