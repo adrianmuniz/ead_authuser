@@ -3,6 +3,7 @@ package com.ead.authuser.clients;
 import com.ead.authuser.dto.CourseDto;
 import com.ead.authuser.dto.ResponsePageDto;
 import com.ead.authuser.services.impl.UtilsServiceImpl;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,7 @@ public class CourseClient {
     @Value("${ead.api.url.course}")
     String REQUEST_URL_COURSE;
 
+    @Retry(name = "retryInstance")
     public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
         List<CourseDto> searchResult = null;
         String url = REQUEST_URL_COURSE + utilsService.createUrlGetAllCoursesByUser(userId, pageable);

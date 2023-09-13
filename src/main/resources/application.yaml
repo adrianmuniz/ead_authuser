@@ -46,3 +46,10 @@ logging:
     root: INFO
     org.springframework.web: DEBUG
     org.hibernate: DEBUG
+
+resilience4j:
+  retry:
+    instances:
+      retryInstance:
+        maxAttempts: 3
+        waitDuration: 5s
