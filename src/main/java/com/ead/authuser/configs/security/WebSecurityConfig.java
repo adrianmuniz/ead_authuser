@@ -1,5 +1,6 @@
 package com.ead.authuser.configs.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthenticationEntryPointImpl authenticationEntryPoint;
     private static final String[] AUTH_WHITELIST = {
             "/ead-authuser/auth/**"
     };
@@ -24,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint)
+                //.authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
