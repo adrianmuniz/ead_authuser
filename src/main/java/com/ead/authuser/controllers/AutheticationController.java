@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,9 @@ public class AutheticationController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@RequestBody @Validated(UserDTO.UserView.RegistrationPost.class)
                                                    @JsonView(UserDTO.UserView.RegistrationPost.class) UserDTO userDTO) {
@@ -45,6 +49,7 @@ public class AutheticationController {
         }
         RoleModel roleModel = roleService.findByRoleName(RoleType.ROLE_STUDENT)
                 .orElseThrow(() -> new RuntimeException("Error: Role is Not Found."));
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDTO, userModel);
         userModel.setUserStatus(UserStatus.ACTIVE);
