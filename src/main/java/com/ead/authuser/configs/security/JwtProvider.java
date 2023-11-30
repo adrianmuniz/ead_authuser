@@ -20,14 +20,14 @@ public class JwtProvider {
     private int jwtExpirationMs;
 
     public String generateJwt(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         final String roles = userPrincipal.getAuthorities().stream()
                 .map(role -> {
                     return role.getAuthority();
                 }).collect(Collectors.joining(","));
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((userPrincipal.getUserId().toString()))
                 .claim("roles",roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
@@ -35,7 +35,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String getUsernameJwt(String token) {
+    public String getSubjectJwt(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
