@@ -84,6 +84,29 @@ public class AutheticationController {
         return ResponseEntity.ok(new JwtDto(jwt));
     }
 
+    @PostMapping("/signup/admin/usr")
+    public ResponseEntity<Object> registerUserAdmin(@RequestBody @Validated(UserDTO.UserView.RegistrationPost.class)
+                                               @JsonView(UserDTO.UserView.RegistrationPost.class) UserDTO userDTO) {
+        if(userService.existsByUsername(userDTO.getUsername())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
+        }
+        if(userService.existsByEmail(userDTO.getEmail())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
+        }
+        RoleModel roleModel = roleService.findByRoleName(RoleType.ROLE_ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found."));
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        var userModel = new UserModel();
+        BeanUtils.copyProperties(userDTO, userModel);
+        userModel.setUserStatus(UserStatus.ACTIVE);
+        userModel.setUserType(UserType.ADMIN);
+        userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
+        userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+        userModel.getRoles().add(roleModel);
+        userService.saveUser(userModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
+    }
+
     @GetMapping("/")
     public String index(){
         logger.trace("TRACE");
